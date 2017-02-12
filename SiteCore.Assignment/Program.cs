@@ -10,6 +10,7 @@ namespace SiteCore.Assignment
     {
         static void Main(string[] args)
         {
+
         }
     }
 }

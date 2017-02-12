@@ -6,7 +6,7 @@ namespace EventAggregator.Tests
     [TestClass]
     public class EventAggregatorTests
     {
-        private EventAggregator _aggregator;
+        private IEventAggregator _aggregator;
 
         [TestInitialize]
         public void TestInitialize()

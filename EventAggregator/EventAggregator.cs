@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EventAggregator
 {
-    public class EventAggregator
+    public class EventAggregator : IEventAggregator
     {
         private readonly object _lockObject = new object();
 
