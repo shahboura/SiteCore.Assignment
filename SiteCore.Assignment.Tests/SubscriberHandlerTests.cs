@@ -8,7 +8,7 @@ namespace SiteCore.Assignment.Tests
     [TestClass]
     public class SubscriberHandlerTests
     {
-        private SubscriberHandler _handler;
+        private ISubscriberHandler _handler;
 
         [TestInitialize]
         public void TestInitialize()

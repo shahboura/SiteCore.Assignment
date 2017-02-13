@@ -43,9 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ISubscriber.cs" />
+    <Compile Include="ISubscriberHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PingSubscriber.cs" />
+    <Compile Include="Strategy.cs" />
     <Compile Include="Subscriber.cs" />
     <Compile Include="SubscriberHandler.cs" />
     <Compile Include="SumSubscriber.cs" />

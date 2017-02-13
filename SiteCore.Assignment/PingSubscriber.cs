@@ -7,10 +7,11 @@ namespace SiteCore.Assignment
     {
         public PingSubscriber(IEventAggregator eventAggregator) : base(eventAggregator)
         {
-            Action = s =>
-            {
-                Console.WriteLine($"Pinging back {s} from {Name}");
-            };
+        }
+
+        public override void Action(string data)
+        {
+            Console.WriteLine($"Pinging back {data} from {Name}");
         }
     }
 }

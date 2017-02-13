@@ -5,10 +5,10 @@ using EventAggregator;
 
 namespace SiteCore.Assignment
 {
-    public class SubscriberHandler
+    public class SubscriberHandler : ISubscriberHandler
     {
         protected readonly IEventAggregator EventAggregator;
-        public readonly List<ISubscriber> Subscribers = new List<ISubscriber>();
+        public List<ISubscriber> Subscribers { get; } = new List<ISubscriber>();
         private int _counter = 1;
 
         public SubscriberHandler(IEventAggregator eventAggregator)
@@ -43,9 +43,22 @@ namespace SiteCore.Assignment
             return subscriber;
         }
 
+        public void Subscribe(string name)
+        {
+            var subscriber = Subscribers.FirstOrDefault(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+            if (subscriber == null)
+            {
+                return;
+            }
+
+            subscriber.Subscribe();
+            Console.WriteLine($"subscribed {name}");
+        }
+
         public void Unsubscribe(string name)
         {
-            var subscriber = Subscribers.FirstOrDefault(s => s.Name == name);
+            var subscriber = Subscribers.FirstOrDefault(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 
             if (subscriber == null)
             {
@@ -58,7 +71,14 @@ namespace SiteCore.Assignment
 
         public void DeleteSubscriber(string name)
         {
-            Subscribers.RemoveAll(s => s.Name == name);
+            var matchedSubscribers = Subscribers.Where(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList();
+            matchedSubscribers.ForEach(s =>
+            {
+                // Manually unsubscribe to overcome instance action memory leak
+                // One possible solution is MethodInfo
+                s.Unsubscribe();
+                Subscribers.Remove(s);
+            });
             
             GC.Collect();
             Console.WriteLine($"subscriber {name} deleted");

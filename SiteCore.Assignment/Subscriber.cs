@@ -6,7 +6,6 @@ namespace SiteCore.Assignment
     public class Subscriber<T> : ISubscriber
     {
         protected readonly IEventAggregator EventAggregator;
-        protected Action<T> Action;
 
         public string Name { get; set; }
         public bool IsLive { get; set; }
@@ -19,8 +18,12 @@ namespace SiteCore.Assignment
 
         public virtual void Subscribe()
         {
-            EventAggregator.Subscribe(this, Action);
+            EventAggregator.Subscribe<T>(this, Action);
             IsLive = true;
+        }
+
+        public virtual void Action(T data)
+        {
         }
 
         public virtual void Unsubscribe()

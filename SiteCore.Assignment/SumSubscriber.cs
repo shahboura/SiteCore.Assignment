@@ -7,11 +7,12 @@ namespace SiteCore.Assignment
     {
         public SumSubscriber(IEventAggregator eventAggregator) : base(eventAggregator)
         {
-            Action = s =>
-            {
-                Data += s;
-                Console.WriteLine($"Sum is {s} from {Name}");
-            };
+        }
+
+        public override void Action(int data)
+        {
+            Data += data;
+            Console.WriteLine($"Sum is {Data} from {Name}");
         }
     }
 }
